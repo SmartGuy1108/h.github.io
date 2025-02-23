@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="settings">
+            <label for="theme-select">Theme:</label>
+            <select id="theme-select" onchange="changeTheme()">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+        </div>
+        <div id="chatbox" class="chatbox"></div>
+        <input type="text" id="userInput" placeholder="Type a message..." onkeydown="if(event.key === 'Enter') sendMessage()">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
