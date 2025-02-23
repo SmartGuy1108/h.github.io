@@ -1,29 +1,38 @@
-const chatbotResponses = {
-    "hello": "Hi there! How can I help you?",
-    "how are you?": "I'm just a bunch of code, but I'm here to assist you!",
-    "bye": "Goodbye! Have a great day!"
-};
+const botName = "Bot";
 
 function sendMessage() {
     const userInput = document.getElementById('userInput').value.toLowerCase();
     const chatbox = document.getElementById('chatbox');
     
+    if (!userInput) return;
+
     const userMessage = document.createElement('div');
-    userMessage.textContent = `You: ${document.getElementById('userInput').value}`;
+    userMessage.textContent = `You: ${userInput}`;
     userMessage.className = 'user-message';
     chatbox.appendChild(userMessage);
 
     const botResponse = document.createElement('div');
     botResponse.className = 'bot-message';
-    if (chatbotResponses[userInput]) {
-        botResponse.textContent = `Bot: ${chatbotResponses[userInput]}`;
-    } else {
-        botResponse.textContent = "Bot: I'm not sure how to respond to that.";
-    }
+    botResponse.textContent = `Bot: ${generateResponse(userInput)}`;
     chatbox.appendChild(botResponse);
 
     document.getElementById('userInput').value = '';
     chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+function generateResponse(input) {
+    const doc = nlp(input);
+    const questions = doc.questions().out('array');
+    const statements = doc.statements().out('array');
+    let response = "I'm not sure how to respond to that.";
+
+    if (questions.length) {
+        response = "That's an interesting question!";
+    } else if (statements.length) {
+        response = "I see, that's fascinating!";
+    }
+
+    return response;
 }
 
 function changeTheme() {
